@@ -1,15 +1,18 @@
 const apiKey = process.env.REACT_APP_APIKEY
-
 const Yelp = {
   search: async (term, location, sortBy) => {
-    try {
-      const response = 
-        await fetch(`/businesses/search?term=${term}&location=${location}&sort_by=${sortBy}`, {
-          headers: {
-            Authorization: `Bearer ${apiKey}`
-          }
-        })
+    const h = new Headers()
+    h.append('Accept', 'application/json')
+    h.append('Content-Type', 'application/json')
+    h.append('Authorization', `Bearer ${apiKey}`)
+
+    const req = new Request(`https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=${term}&location=${location}&sort_by=${sortBy}`, {
+      method: 'GET',
+      headers: h
+    })
     
+    try {
+      const response = await fetch(req)
       const jsonResponse = await response.json()
 
       if (jsonResponse.error) {

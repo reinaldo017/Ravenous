@@ -29,8 +29,7 @@ const SearchBar = ({ searchYelp }) => {
     setLocation(target.value)
   }
 
-  const handleSearch = (event) => {
-    event.preventDefault()
+  const handleSearch = () => {
     searchYelp(term, location, sortBy)
     setTerm('')
     setLocation('')
